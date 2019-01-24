@@ -7,12 +7,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/style.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <script src="assets/app.js"></script>
 </head>
 <body>
-    
+    <!-- created jumbotron to tell user that they are on train time page-->
+    <div class="jumbotron" style="background-color:aquamarine; color:black">
+        <h1 class="text-center"> Anytime is train time!</h1>
+        <h3 class="text-center">CHOO CHOO!</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><strong>Current Train Schedule</strong></h3>
+                </div>
+                <!--created a table which is our train schedule-->
+                <div class="panel-body">
+                    <table class="table table-hover" id="trainTable">
+                        <thead>
+                            <tr>
+                                <th>train name</th>
+                                <th>Destination</th>
+                                <th>Frequency (min)</th>
+                                <th>Next arrival</th>
+                                <th>Minutes Away</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--populating using firebase and jquery -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--added new row and column/new panel called Add train -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class ="panel-title"><strong>Add Train</strong></h3>
+                    </div>
+                    <div class="panel-body">
+                         <!--set up form to send data to firebase/ train name,destination,TT,Frequency -->
+                        <form>
+                            <div class="form-group">
+                                <label for="">Train name</label>
+                                <input type="text" class="form-control" name="trainNameInput">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Destination</label>
+                                <input type="text" class="form-control" name="destinationInput">
+                            </div>
+                            <div class="form-group">
+                                <label for="">First Train Time(HH:mm - Military Time)</label>
+                                <input type="text" class="form-control" name="firstTrainInput">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Frequency (Min)</label>
+                                <input type="text" class="form-control" name="frequencyInput">
+                            </div>
+                            <!--added submit button-->
+                            <button type="submit" class="btn btn-primary" id="addTrainBtn">Submit!</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="assets/app.js"></script>
 </body>
 </html>
