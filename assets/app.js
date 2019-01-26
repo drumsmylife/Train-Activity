@@ -16,9 +16,10 @@ var config = {
       var trainName = $("#trainNameInput").val().trim();
       var destination = $("#destinationInput").val().trim();
       //turning first train input into a unit variable. Making everything appear on one line
-      var firstTrain = moment($("#firstTrainInput").val().trim(),"HH:mm").subtract(10,"years").format("X");
+      var firstTrain = moment($("#firstTrainInput").val().trim(),"HH:mm").subtract(1,"years").format("X");
+      console.log("firstTrain", firstTrain);
       var frequency = $("#frequencyInput").val().trim();
-
+      //created variable to push the data
       var newData = {
           name: trainName, 
           destination: destination,
@@ -26,13 +27,34 @@ var config = {
           frequency: frequency
       
       }
-    trainData.ref().push(newData);
+      //pushes the var newData to firebase
+      trainData.ref().push(newData);
 
+      //lets user know train was added
       alert("train added!");
-    $("#trainNameInput").val("");
-    $("#destinationInput").val("");
-    $("#firstTrainInput").val("");
-    $("#frequencyInput").val("");
-    return false;
+
+  
+      return false;
 
   });
+
+    // referencing FB database when train time is added.
+    // calculate arrival using remainder and minutes/frequency.
+    //  //appends info to schedule on document
+  trainData.ref().on("child_added",function(snapshot){
+    var name = snapshot.val().name;
+    var destination = snapshot.val().destination;
+    var frequency = snapshot.val().frequency;
+    var firstTrain = snapshot.val().firstTrain;
+    console.log("firstTrain2", firstTrain);
+    console.log("frequency2", frequency);
+
+    var remainder = moment().diff(moment.unix(firstTrain),"minutes")%frequency;
+    var minutes = frequency - remainder;
+    var arrival = moment().add(minutes,"m").format("hh:mm A");
+
+    console.log("remainder", remainder);
+    console.log("minutes", minutes);
+    console.log("arrival", arrival);
+    $("#trainTable > tbody").append("<tr><td>"+name+"</td><td>"+destination+"</td><td>"+arrival+"</td><td>"+minutes+"</td></tr>");
+  })
